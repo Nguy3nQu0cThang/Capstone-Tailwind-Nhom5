@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <script>
+      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      if (
+        localStorage.getItem("color-theme") === "dark" ||
+        (!("color-theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+
+    <link rel="stylesheet" href="./output.css" />
+  </head>
+  <body>
+    <!-- header -->
+    <header class="px-4">
+      <nav
+        class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600"
+      >
+        <div
+          class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+        >
+          <a
+            href="./../img/logo-light.svg"
+            class="flex items-center space-x-3 rtl:space-x-reverse"
+          >
+            <img
+              src="https://flowbite.com/docs/images/logo.svg"
+              class="h-8"
+              alt="Base Logo"
+            />
+            <span
+              class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+              >Base</span
+            >
+          </a>
+          <div
+            class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse"
+          >
+            <ul
+              class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+            >
+              <li>
+                <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                  <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                  <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+              </button>
+              
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >Sign In</a
+                >
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Sign Up
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div
+            class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+            id="navbar-sticky"
+          >
+            <ul
+              class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+            >
+              <li>
+                <a
+                  href="#"
+                  class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                  aria-current="page"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >Feature</a
+                >
+              </li>
+              <li>
+                <button
+                  id="dropdownNavbarLink"
+                  data-dropdown-toggle="dropdownNavbar"
+                  class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                >
+                  Pages
+                  <svg
+                    class="w-2.5 h-2.5 ms-2.5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 10 6"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m1 1 4 4 4-4"
+                    />
+                  </svg>
+                </button>
+                <!-- Dropdown menu -->
+                <div
+                  id="dropdownNavbar"
+                  class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                >
+                  <ul
+                    class="py-2 text-sm text-gray-700 dark:text-gray-400"
+                    aria-labelledby="dropdownLargeButton"
+                  >
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >Blog Grid</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >Blog Single</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >Sign In</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >Sign Up</a
+                      >
+                    </li>
+                  </ul>
+                  <div class="py-1">
+                    <a
+                      href="#"
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      >Sign out</a
+                    >
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >Support</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- banner  -->
+    <section id="starter" class="overflow-hidden px-4">
+      <div
+        class="container md:flex md:flex-row-reverse md:items-center xl:max-w-screen-xl xl:mx-auto pb-10"
+      >
+        <div class="">
+          <h2 class="text-4xl font-extrabold dark:text-white">
+            We specialize in UI/UX, Web Development, Digital Marketing.
+          </h2>
+          <p class="my-4 text-lg text-gray-500">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+            <br />
+            fringilla magna mauris. Nulla fermentum viverra sem eu rhoncus
+            consequat varius nisi quis, posuere magna.
+          </p>
+          <div class="flex">
+            <button
+              type="button"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Get Started Now
+            </button>
+            <div class="">
+              <h2 class="text-4l font-extrabold dark:text-white">
+                Call us (0123) 456 - 789
+              </h2>
+              <p class="my-2 text-base text-gray-500">
+                For any question or concern
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="top-0 right-0 h-full w-1/2">
+          <img
+            src="./../img/hero.png"
+            alt=""
+            class="bg-blue-800 rounded-full w-2/3 md:w-full mx-auto md:mx-0"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- feature  -->
+    <section id="feature" class="px-4">
+      <div class="feature_content container pb-10">
+        <div class="mt-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+            <div
+              class="frature_item md:flex md:flex-row-reverse md:items-center xl:max-w-screen-sm xl:mx-auto gap-3"
+            >
+              <div
+                class="feature_img rounded-full bg-pink-500 justify-center items-center shrink-0 w-24 h-24 flex text-6xl text-white"
+              >
+                <i
+                  class="fa-solid fa-user-tie h-auto block max-w-xl scale-125"
+                ></i>
+              </div>
+
+              <div class="feature_text">
+                <h3 class="font-bold dark:text-white text-3xl">24/7 Support</h3>
+                <p>
+                  Lorem ipsum dolor sit amet,<br />consectetur adipisicing elit.
+                </p>
+              </div>
+            </div>
+            <div
+              class="frature_item md:flex md:flex-row-reverse md:items-center xl:max-w-screen-sm xl:mx-auto gap-3"
+            >
+              <div
+                class="feature_img rounded-full bg-green-500 justify-center items-center shrink-0 w-24 h-24 flex text-6xl text-white"
+              >
+                <i
+                  class="fa-solid fa-earth-americas h-auto block max-w-xl scale-125"
+                ></i>
+              </div>
+
+              <div class="feature_text">
+                <h3 class="font-bold dark:text-white text-3xl">
+                  Take Ownership
+                </h3>
+                <p>
+                  Lorem ipsum dolor, sit amet <br />
+                  consectetur adipisicing elit.
+                </p>
+              </div>
+            </div>
+            <div
+              class="frature_item md:flex md:flex-row-reverse md:items-center xl:max-w-screen-sm xl:mx-auto gap-3"
+            >
+              <div
+                class="feature_img rounded-full bg-orange-500 justify-center items-center shrink-0 w-24 h-24 flex text-6xl text-white"
+              >
+                <i
+                  class="fa-solid fa-users h-auto block max-w-xl scale-125"
+                ></i>
+              </div>
+
+              <div class="feature_text">
+                <h3 class="font-bold dark:text-white text-3xl">Team Work</h3>
+                <p>
+                  Lorem ipsum, dolor sit amet <br />
+                  consectetur adipisicing elit.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- about -->
+    <section id="about" class="px-4">
+      <div
+        class="container md:flex md:flex-row-reverse md:items-center xl:max-w-screen-xl xl:mx-auto relative gap-28 items-center pb-10"
+      >
+        <div class="about_img md:flex gap-8 pl-5">
+          <div class="about_img_c1">
+            <img
+              src="./../img/shape-05.svg"
+              alt=""
+              class="top-5 -left-5 absolute"
+            />
+            <img src="./../img/about-01.png" alt="" class="mb-8 ml-10" />
+            <img src="./../img/about-02.png" alt="" />
+          </div>
+          <div class="about_img_c2">
+            <img src="./../img/shape-06.svg" alt="" />
+            <img src="./../img/about-03.png" alt="" class="my-7" />
+            <img src="./../img/shape-07.svg" alt="" class="mx-auto" />
+          </div>
+        </div>
+        <div class="about_content pl-11">
+          <h4
+            class="text-xl font-semibold dark:text-white mb-5 w-2/4 text-blue-500"
+          >
+            Why Choose Us
+          </h4>
+          <h2 class="text-5xl font-extrabold dark:text-white mb-8 w-2/4">
+            We Make Our customers happy <br />
+            by giving <br />Best services.
+          </h2>
+          <p class="my-4 text-lg text-gray-500">
+            It is a long established fact that a reader will be distracted by
+            the <br />
+            readable content of a page when looking at its layout. The point of
+            using <br />Lorem Ipsum.
+          </p>
+          <div>
+            <button type="button" class="flex gap-10">
+              <div
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                <i class="fa-solid fa-play"></i>
+              </div>
+
+              <p class="my-2 text-xl text-gray-500">SEE HOW WE WORK</p>
+            </button>
+            <div class=""></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- team  -->
+    <section id="team" class="px-4 relative">
+      <span
+        class="bg-slate-500 w-full h-3/5 block left-0 top-0 absolute"
+      ></span>
+      <img src="./../img/shape-08.svg" alt="" class="top-0 right-0 absolute" />
+      <img
+        src="./../img/shape-09.svg"
+        alt=""
+        class="top-1/2 left-1/4 absolute h-28"
+      />
+      <img
+        src="./../img/shape-10.svg"
+        alt=""
+        class="top-0.5 left-1/4 absolute h-28"
+      />
+      <img
+        src="./../img/shape-11.svg"
+        alt=""
+        class="top-1/4 right-20 absolute h-28"
+      />
+      <div class="team-title">
+        <div class="px-0 text-center max-w-7xl mx-auto">
+          <h2 class="text-5xl w-1/2 font-semibold mb-5 mx-auto">
+            Meet With Our Creative Dedicated Team
+          </h2>
+          <p class="w-1/2 mx-auto text-gray-500">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+            convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam
+            ante in maximus.
+          </p>
+        </div>
+      </div>
+      <div
+        class="team-item px-24 mt-16 max-w-7xl mx-auto z-10 relative text-center"
+      >
+        <div class="grid grid-cols-3 gap-12">
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="./../img/team-01.png"
+              alt=""
+            />
+            <div class="">
+              <h4 class="text-2xl my-5">Olivia Andrium</h4>
+              <p class="text-gray-500">Product Manager</p>
+            </div>
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="./../img/team-02.png"
+              alt=""
+            />
+            <div class="">
+              <h4 class="text-2xl my-5">Jemse Kemorun</h4>
+              <p class="text-gray-500">Product Designer</p>
+            </div>
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="./../img/team-03.png"
+              alt=""
+            />
+            <div class="">
+              <h4 class="text-2xl my-5">Avi Pestarica</h4>
+              <p class="text-gray-500">Web Designer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- service  -->
+    <section id="service" class="mb-16">
+      <div class="service-title">
+        <div class="px-0 text-center max-w-7xl mx-auto">
+          <h2 class="text-5xl w-1/2 font-semibold mb-5 mx-auto">
+            We Offer The Best Quality Service for You
+          </h2>
+          <p class="w-1/2 mx-auto text-gray-500">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+            convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam
+            ante in maximus.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="./../img/icon-04.svg"
+              alt=""
+            />
+            <h4 class="font-semibold text-3xl mb-5 mt-10">
+              Crafted for Startups
+            </h4>
+            <p class="m-0">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+              convallis tortor.
+            </p>
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="./../img/icon-05.svg"
+              alt=""
+            />
+            <h4 class="font-semibold text-3xl mb-5 mt-10">
+              High-quality Design
+            </h4>
+            <p class="m-0">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+              convallis tortor.
+            </p>
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="./../img/icon-06.svg"
+              alt=""
+            />
+            <h4 class="font-semibold text-3xl mb-5 mt-10">
+              All Essential Sections
+            </h4>
+            <p class="m-0">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+              convallis tortor.
+            </p>
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="./../img/icon-07.svg"
+              alt=""
+            />
+            <h4 class="font-semibold text-3xl mb-5 mt-10">Speed Optimized</h4>
+            <p class="m-0">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+              convallis tortor.
+            </p>
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="./../img/icon-05.svg"
+              alt=""
+            />
+            <h4 class="font-semibold text-3xl mb-5 mt-10">
+              Fully Customizable
+            </h4>
+            <p class="m-0">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+              convallis tortor.
+            </p>
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="./../img/icon-06.svg"
+              alt=""
+            />
+            <h4 class="font-semibold text-3xl mb-5 mt-10">Regular Updates</h4>
+            <p class="m-0">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+              convallis tortor.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- pricing  -->
+    <section id="pricing" class="py-32 md:py-20 overflow-hidden relative">
+      <!-- <img
+        src="./../img/shape-06.svg"
+        alt=""
+        class="top-[5%] left-[10%] absolute w-10"
+      />
+      <img
+        src="./../img/shape-03.svg"
+        alt=""
+        class="top-1/4 right-[20%] absolute w-10"
+      />
+      <img
+        src="./../img/shape-07.svg"
+        alt=""
+        class="right-[5%] bottom-[10%] absolute w-24"
+      />
+      <img
+        src="./../img/shape-12.svg"
+        alt=""
+        class="left-0 bottom-0 absolute"
+      />
+      <img src="./../img/shape-13.svg" alt="" class="top-0 right-0 absolute" /> -->
+      <div class="container">
+        <div class="pricing_title text-center px-0 m-auto max-w-7xl">
+          <h2 class="text-5xl md:text-6xl mb-3 font-semibold">
+            We Offer Great Affordable <br />
+            Premium Prices.
+          </h2>
+          <p class="w-1/2 mx-auto text-gray-500">
+            It is a long established fact that a reader will be distracted by
+            the readable content of a page when looking at its layout. The point
+            of using.
+          </p>
+        </div>
+        <div class="pricing_content">
+          <div class="mb-4 pricing-switcher">
+            <ul
+              class="flex justify-center flex-wrap -mb-px text-sm font-medium text-center"
+              id="default-styled-tab"
+              data-tabs-toggle="#default-styled-tab-content"
+              data-tabs-active-classes="text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500"
+              data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300"
+              role="tablist"
+            >
+              <li class="me-2" role="presentation">
+                <button
+                  class="inline-block p-4 border-b-2 rounded-t-lg"
+                  id="profile-styled-tab"
+                  data-tabs-target="#monthly"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Bill Monthly
+                </button>
+              </li>
+              <li class="me-2" role="presentation">
+                <button
+                  class="inline-block p-4 border-b-2 rounded-t-lg"
+                  id="profile-styled-tab"
+                  data-tabs-target="#annually"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Bill Annually
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div
+            id="default-styled-tab-content"
+            class="py-20 max-w-7xl mt-14 mx-auto z-10 relative"
+          >
+            <div
+              class="hidden p-4 rounded-lg"
+              id="monthly"
+              role="tabpanel"
+              aria-labelledby="profile-tab"
+            >
+              <div class="grid grid-cols-3 gap-10">
+                <div
+                  class="pricing_item text-center py-10 px-7 bg-white rounded-lg font-light shadow-2xl"
+                >
+                  <h4 class="text-2xl mb-10">Starter</h4>
+                  <div class="gap-2 justify-center items-center flex mb-2">
+                    <h2 class="font-semibold text-4xl">$29</h2>
+                    <span class="text-xs inline-block">/per month</span>
+                  </div>
+                  <p class="mb-10 text-gray-500">No credit card required</p>
+                  <button
+                    class="duration-300 text-white bg-pink-600 hover:bg-blue-600 font-semibold py-14 px-3 rounded-full w-44 h-20"
+                  >
+                    Try for free
+                  </button>
+                  <ul
+                    class="flex gap-3 flex-col mt-8 mb-10 text-gray-500 list-none"
+                  >
+                    <li>400GB Storage</li>
+                    <li>Unlimited Photos & Videos</li>
+                    <li>Exclusive Support</li>
+                  </ul>
+                  <p class="m-0">7-day free trial</p>
+                </div>
+                <div
+                  class="pricing_item text-center py-10 px-7 bg-white rounded-lg font-light shadow-2xl"
+                >
+                  <h4 class="text-2xl mb-10">Growth Plan</h4>
+                  <div class="gap-2 justify-center items-center flex mb-2">
+                    <h2 class="font-semibold text-4xl">$59</h2>
+                    <span class="text-xs inline-block">/per month</span>
+                  </div>
+                  <p class="mb-10 text-gray-500">No credit card required</p>
+                  <button
+                    class="duration-300 text-white bg-blue-600 hover:bg-pink-600 font-semibold py-14 px-3 rounded-full w-44 h-20"
+                  >
+                    Try for free
+                  </button>
+                  <ul
+                    class="flex gap-3 flex-col mt-8 mb-10 text-gray-500 list-none"
+                  >
+                    <li>400GB Storage</li>
+                    <li>Unlimited Photos & Videos</li>
+                    <li>Exclusive Support</li>
+                  </ul>
+                  <p class="m-0">7-day free trial</p>
+                </div>
+                <div
+                  class="pricing_item text-center py-10 px-7 bg-white rounded-lg font-light shadow-2xl"
+                >
+                  <h4 class="text-2xl mb-10">Business</h4>
+                  <div class="gap-2 justify-center items-center flex mb-2">
+                    <h2 class="font-semibold text-4xl">$139</h2>
+                    <span class="text-xs inline-block">/per month</span>
+                  </div>
+                  <p class="mb-10 text-gray-500">No credit card required</p>
+                  <button
+                    class="duration-300 text-white bg-pink-600 hover:bg-blue-600 font-semibold py-14 px-3 rounded-full w-44 h-20"
+                  >
+                    Try for free
+                  </button>
+                  <ul
+                    class="flex gap-3 flex-col mt-8 mb-10 text-gray-500 list-none"
+                  >
+                    <li>400GB Storage</li>
+                    <li>Unlimited Photos & Videos</li>
+                    <li>Exclusive Support</li>
+                  </ul>
+                  <p class="m-0">7-day free trial</p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="hidden p-4 rounded-lg"
+              id="annually"
+              role="tabpanel"
+              aria-labelledby="profile-tab"
+            >
+              <div class="grid grid-cols-3 gap-10">
+                <div
+                  class="pricing_item text-center py-10 px-7 bg-white rounded-lg font-light shadow-2xl"
+                >
+                  <h4 class="text-2xl mb-10">Starter</h4>
+                  <div class="gap-2 justify-center items-center flex mb-2">
+                    <h2 class="font-semibold text-4xl">$149</h2>
+                    <span class="text-xs inline-block">/per month</span>
+                  </div>
+                  <p class="mb-10 text-gray-500">No credit card required</p>
+                  <button
+                    class="duration-300 text-white bg-pink-600 hover:bg-blue-600 font-semibold py-14 px-3 rounded-full w-44 h-20"
+                  >
+                    Try for free
+                  </button>
+                  <ul
+                    class="flex gap-3 flex-col mt-8 mb-10 text-gray-500 list-none"
+                  >
+                    <li>400GB Storage</li>
+                    <li>Unlimited Photos & Videos</li>
+                    <li>Exclusive Support</li>
+                  </ul>
+                  <p class="m-0">7-day free trial</p>
+                </div>
+                <div
+                  class="pricing_item text-center py-10 px-7 bg-white rounded-lg font-light shadow-2xl"
+                >
+                  <h4 class="text-2xl mb-10">Growth Plan</h4>
+                  <div class="gap-2 justify-center items-center flex mb-2">
+                    <h2 class="font-semibold text-4xl">$608</h2>
+                    <span class="text-xs inline-block">/per month</span>
+                  </div>
+                  <p class="mb-10 text-gray-500">No credit card required</p>
+                  <button
+                    class="duration-300 text-white bg-blue-600 hover:bg-pink-600 font-semibold py-14 px-3 rounded-full w-44 h-20"
+                  >
+                    Try for free
+                  </button>
+                  <ul
+                    class="flex gap-3 flex-col mt-8 mb-10 text-gray-500 list-none"
+                  >
+                    <li>400GB Storage</li>
+                    <li>Unlimited Photos & Videos</li>
+                    <li>Exclusive Support</li>
+                  </ul>
+                  <p class="m-0">7-day free trial</p>
+                </div>
+                <div
+                  class="pricing_item text-center py-10 px-7 bg-white rounded-lg font-light shadow-2xl"
+                >
+                  <h4 class="text-2xl mb-10">Business</h4>
+                  <div class="gap-2 justify-center items-center flex mb-2">
+                    <h2 class="font-semibold text-4xl">$1568</h2>
+                    <span class="text-xs inline-block">/per month</span>
+                  </div>
+                  <p class="mb-10 text-gray-500">No credit card required</p>
+                  <button
+                    class="duration-300 text-white bg-pink-600 hover:bg-blue-600 font-semibold py-14 px-3 rounded-full w-44 h-20"
+                  >
+                    Try for free
+                  </button>
+                  <ul
+                    class="flex gap-3 flex-col mt-8 mb-10 text-gray-500 list-none"
+                  >
+                    <li>400GB Storage</li>
+                    <li>Unlimited Photos & Videos</li>
+                    <li>Exclusive Support</li>
+                  </ul>
+                  <p class="m-0">7-day free trial</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- project -->
+    <section id="project">
+      <div class="flex items-center justify-center py-4 md:py-8 flex-wrap">
+        <button
+          type="button"
+          class="text-white hover:text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 focus:bg-blue-600 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:bg-gray-900 dark:focus:ring-blue-800"
+        >
+          All
+        </button>
+        <button
+          type="button"
+          class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-blue-300 focus:bg-blue-600 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800"
+        >
+          Branding Strategy
+        </button>
+        <button
+          type="button"
+          class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-blue-300 focus:bg-blue-600 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800"
+        >
+          Digital Experience
+        </button>
+        <button
+          type="button"
+          class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-blue-300 focus:bg-blue-600 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800"
+        >
+          Ecommerce
+        </button>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div>
+          <img
+            class="h-auto max-w-full rounded-lg"
+            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+            alt=""
+          />
+        </div>
+        <div>
+          <img
+            class="h-auto max-w-full rounded-lg"
+            src="./../img/project-01.png"
+            alt=""
+          />
+        </div>
+        <div>
+          <img
+            class="h-auto max-w-full rounded-lg"
+            src="./../img/project-02.png"
+            alt=""
+          />
+        </div>
+        <div>
+          <img
+            class="h-auto max-w-full rounded-lg"
+            src="./../img/project-03.png"
+            alt=""
+          />
+        </div>
+      </div>
+    </section>
+    <script src="./..//node_modules/flowbite/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+  </body>
+</html>
